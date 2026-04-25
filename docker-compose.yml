@@ -1,0 +1,15 @@
+services:
+  aether:
+    build: .
+    image: aether-agent:latest
+    container_name: aether
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+      - ./.claude:/app/.claude
+      - ./CLAUDE.md:/app/CLAUDE.md:ro
+      - ./MEMORY.md:/app/MEMORY.md
+    # tty/stdin so `docker compose run aether aether chat` works for the REPL.
+    tty: true
+    stdin_open: true
